@@ -1,7 +1,6 @@
 package com.example.test.controller;
 
 import java.util.List;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +40,15 @@ public class RdvController {
 	@PostMapping("/create/{id}")
 	public Rdv createRdvforPersonne(@RequestBody Rdv rdv, @PathVariable long id) {
 		Personne person =personneRepository.getById(id);
-		rdv.setPersonne(person);
+		rdv.setPersonne(person);	
+		List<Rdv> listRV = rdvRepository.findByPersonne(person);
+		//boolean verif= false;
+		for(Rdv s :listRV ) 
+			
+			if(s.getHeuredebut().equals(rdv.getHeuredebut()) && s.getHeurefin().equals(rdv.getHeurefin())) 
+				return null;
+		
 		return rdvRepository.save(rdv);
- }
+	}	
+ 
 }
