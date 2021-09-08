@@ -63,6 +63,20 @@ public class Rdv {
 	public void setHeurefin(String heurefin) {
 		this.heurefin = heurefin;
 	}
+
+	public Personne getPersonne() {
+		return personne;
+	}
+
+	public void setPersonne(Personne personne) {
+		this.personne = personne;
+	}
+
+	@Override
+	public String toString() {
+		return "Rdv [id=" + id + ", heuredebut=" + heuredebut + ", motif=" + motif + ", heurefin=" + heurefin
+				+ ", personne=" + personne + "]";
+	}
     
     
 

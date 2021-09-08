@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
 @Table
@@ -30,6 +33,8 @@ public class Personne {
     private String fonction;
     
     @OneToMany(mappedBy = "personne", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<Rdv> rdv;
 
     
