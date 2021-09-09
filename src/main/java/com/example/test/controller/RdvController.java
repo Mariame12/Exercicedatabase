@@ -1,6 +1,7 @@
 package com.example.test.controller;
 
 import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,10 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.test.entity.Personne;
 import com.example.test.entity.Rdv;
-import com.example.test.repository.PersonRepository;
-import com.example.test.repository.RdvRepository;
+import com.example.test.service.RdvService;
+
 
 @RequestMapping("/api/rdv")
 @RestController
@@ -19,36 +19,26 @@ import com.example.test.repository.RdvRepository;
 
 public class RdvController {
 	
-	private final RdvRepository rdvRepository;
-	private final PersonRepository personneRepository;
+	private final RdvService rdvService;
 	
-	public RdvController(RdvRepository rdvRepository,PersonRepository personneRepository) {
-		this.rdvRepository = rdvRepository;
-		this.personneRepository = personneRepository;
+	
+	public RdvController(RdvService rdvService) {
+		this.rdvService = rdvService;
 	}
-
 	@GetMapping("/list")
 	public List<Rdv> getAll() {
-		return rdvRepository.findAll();
+		return rdvService.getAll();
 		
 	}
 	@PostMapping("/create")
 	public Rdv createRdv(@RequestBody Rdv rdv) {
-		return rdvRepository.save(rdv);
+		return rdvService.createRdv(rdv);
    }
 	
 	@PostMapping("/create/{id}")
 	public Rdv createRdvforPersonne(@RequestBody Rdv rdv, @PathVariable long id) {
-		Personne person =personneRepository.getById(id);
-		rdv.setPersonne(person);	
-		List<Rdv> listRV = rdvRepository.findByPersonne(person);
-		//boolean verif= false;
-		for(Rdv s :listRV ) 
-			
-			if(s.getHeuredebut().equals(rdv.getHeuredebut()) && s.getHeurefin().equals(rdv.getHeurefin())) 
-				return null;
 		
-		return rdvRepository.save(rdv);
+		return rdvService.createRdvforPersonne(rdv,id);
 	}	
  
 }

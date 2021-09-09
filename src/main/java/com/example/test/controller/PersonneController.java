@@ -14,19 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 import  com.example.test.entity.Personne;
 //import com.example.test.exception.ResourceNotFoundException;
 //import com.example.test.repository.PersonRepository;
-import com.example.test.service.ProjetService;
+import com.example.test.service.PersonneService;
 //import com.example.test.repository.RdvRepository;
 
 
 @RestController
 @RequestMapping("/api/personnes")
-public class TestController {
+public class PersonneController {
 
 	@Autowired
-	//private ModelMapper modelMapper;
-   // private PersonRepository userRepository;
-	//private  RdvRepository rvRepository;
-	private ProjetService service;
+	private PersonneService service;
 	
 	 @PostMapping("/add")
 	 public Personne addPersonne(@RequestBody Personne user) {
@@ -46,3 +43,4 @@ public class TestController {
 
 	 }
 }
+
